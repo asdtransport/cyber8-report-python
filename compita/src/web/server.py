@@ -40,7 +40,7 @@ API_URL = os.environ.get("API_URL", DEFAULT_API_URL)
 ZITADEL_DOMAIN = os.environ.get("ZITADEL_DOMAIN")
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-REDIRECT_URI = os.environ.get("REDIRECT_URI", "http://localhost:8080/callback")
+
 
 # Setup resource protector
 require_auth = ResourceProtector()
@@ -84,7 +84,7 @@ def get_login_url():
     # Build authorization URL for Basic authentication
     params = {
         'client_id': CLIENT_ID,
-        'redirect_uri': REDIRECT_URI,
+        'redirect_uri': url_for('callback', _external=True),
         'response_type': 'code',
         'scope': 'openid profile email',
         'state': state,
@@ -170,7 +170,7 @@ def callback():
     token_data = {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': REDIRECT_URI
+        'redirect_uri': url_for('callback', _external=True)
     }
     
     # Make token request with Basic auth
