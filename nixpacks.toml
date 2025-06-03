@@ -1,4 +1,4 @@
-# Use Ubuntu as the base image for better library compatibility
+# Comprehensive WeasyPrint fix for Railway
 [build]
 builder = "nixpacks"
 baseImage = "ubuntu:22.04"
@@ -10,25 +10,58 @@ aptPkgs = [
   "python3-pip",
   "python3-venv",
   "python3-dev",
+  "pkg-config",
+  # Cairo packages
   "libcairo2",
+  "libcairo2-dev",
+  # Pango packages  
   "libpango-1.0-0",
   "libpangocairo-1.0-0",
+  "libpango1.0-dev",
+  "libpangoft2-1.0-0",
+  # GObject packages (CRITICAL)
+  "libgobject-2.0-0",
+  "libgobject2.0-dev",
+  "libglib2.0-0", 
+  "libglib2.0-dev",
+  "libgirepository1.0-dev",
+  # Additional graphics libraries
   "libgdk-pixbuf2.0-0",
+  "libgdk-pixbuf2.0-dev",
+  # HarfBuzz
+  "libharfbuzz0b",
+  "libharfbuzz-dev",
+  "libharfbuzz-subset0",
+  # Other dependencies
   "libffi-dev",
   "shared-mime-info",
-  "libgirepository1.0-dev",
+  "fontconfig",
+  "libfontconfig1-dev",
+  "libxml2-dev",
+  "libxslt1-dev",
+  # GI packages
   "gir1.2-pango-1.0",
   "gir1.2-gtk-3.0",
   "gir1.2-harfbuzz-0.0",
-  "libpango1.0-dev",
-  "libharfbuzz-dev",
-  "libxml2-dev",
-  "libxslt1-dev",
-  "libffi-dev"
+  "gir1.2-gobject-2.0"
+]
+
+[phases.configure]
+dependsOn = ["setup"]
+cmds = [
+  # Update library cache
+  "ldconfig",
+  # Verify installations
+  "pkg-config --exists gobject-2.0 && echo '✅ GObject found' || echo '❌ GObject missing'",
+  "pkg-config --exists cairo && echo '✅ Cairo found' || echo '❌ Cairo missing'",
+  "pkg-config --exists pango && echo '✅ Pango found' || echo '❌ Pango missing'",
+  # Show library locations
+  "find /usr -name '*gobject*' -type f 2>/dev/null | head -5",
+  "ldd --version || echo 'ldd not available'"
 ]
 
 [phases.install]
 cmd = "python3 -m venv /opt/venv && . /opt/venv/bin/activate && pip install -e ."
 
 [start]
-cmd = "python3 railway-entrypoint.py"
+cmd = "ldconfig && python3 railway-entrypoint.py"
