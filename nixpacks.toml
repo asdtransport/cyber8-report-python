@@ -1,5 +1,9 @@
 [phases.setup]
 nixPkgs = [
+  "python310",
+  "python310Packages.pip",
+  "python310Packages.setuptools",
+  "python310Packages.wheel",
   "pango",
   "cairo",
   "gobject-introspection",
@@ -12,5 +16,8 @@ nixPkgs = [
   "libxslt"
 ]
 
+[phases.install]
+cmd = "python3 -m venv /opt/venv && . /opt/venv/bin/activate && pip install -e ."
+
 [start]
-cmd = "python railway-entrypoint.py"
+cmd = "python3 railway-entrypoint.py"
