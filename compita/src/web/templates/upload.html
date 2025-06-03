@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Cyber8 Report Generator - Upload CSV{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Upload CSV Files</h2>
+    <p>Upload and parse CSV files for processing. The files will be saved in the correct folder structure.</p>
+    
+    <div class="form-group">
+        <label for="upload-date">Date (YY-MM-DD):</label>
+        <input type="text" id="upload-date" placeholder="25-05-26" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="file-type">File Type:</label>
+        <select id="file-type" required>
+            <option value="classgradebook">Class Gradebook</option>
+            <option value="studyhistory">Study History</option>
+            <option value="timeperresource">Time Per Resource</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="parser-type">Parser Type:</label>
+        <select id="parser-type" required>
+            <option value="gradebook">Gradebook</option>
+            <option value="study">Study</option>
+            <option value="resource">Resource</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="csv-file">CSV File:</label>
+        <input type="file" id="csv-file" accept=".csv" required>
+    </div>
+    
+    <button id="upload-csv" class="btn primary">Upload and Parse</button>
+    
+    <div id="upload-status" class="status-container hidden">
+        <h3>Upload Status</h3>
+        <div class="status-content">
+            <p><strong>Status:</strong> <span id="upload-status-text"></span></p>
+            <p><strong>Message:</strong> <span id="upload-message"></span></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/upload.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initUploadCSV();
+    });
+</script>
+{% endblock %}

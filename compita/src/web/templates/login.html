@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Cyber8 Report Generator{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Login to Cyber8 Report Generator</h2>
+    
+    {% if error %}
+    <div class="error-message">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    <div class="login-options">
+        <div class="login-tabs">
+            <button class="tab-btn active" id="direct-login-tab">Username & Password</button>
+            <button class="tab-btn" id="zitadel-login-tab">ZITADEL SSO</button>
+        </div>
+        
+        <div class="tab-content" id="direct-login-content">
+            <form action="/login_direct" method="post" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-large">Login</button>
+            </form>
+        </div>
+        
+        <div class="tab-content" id="zitadel-login-content" style="display: none;">
+            <a href="{{ login_url }}" class="btn btn-primary btn-large">
+                Login with ZITADEL
+            </a>
+            <div class="info-box">
+                <p>Access to the Cyber8 Report Generator requires authentication.</p>
+                <p>Please login using your ZITADEL credentials to continue.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Login page loaded');
+        
+        // Get tab elements
+        const directLoginTab = document.getElementById('direct-login-tab');
+        const zitadelLoginTab = document.getElementById('zitadel-login-tab');
+        const directLoginContent = document.getElementById('direct-login-content');
+        const zitadelLoginContent = document.getElementById('zitadel-login-content');
+        
+        // Add click event listeners to tabs
+        directLoginTab.addEventListener('click', function() {
+            directLoginTab.classList.add('active');
+            zitadelLoginTab.classList.remove('active');
+            directLoginContent.style.display = 'block';
+            zitadelLoginContent.style.display = 'none';
+        });
+        
+        zitadelLoginTab.addEventListener('click', function() {
+            zitadelLoginTab.classList.add('active');
+            directLoginTab.classList.remove('active');
+            zitadelLoginContent.style.display = 'block';
+            directLoginContent.style.display = 'none';
+        });
+    });
+</script>
+{% endblock %}

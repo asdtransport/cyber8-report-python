@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Cyber8 Report Generator - Home{% endblock %}
+
+{% block content %}
+<div class="welcome-card">
+    <h2>Welcome to Cyber8 Report Generator</h2>
+    <p>This web interface allows you to generate reports, parse CSV files, and access metrics for Cyber8 data.</p>
+    
+    <!-- Dashboard Component -->
+    <div class="dashboard-panel">
+        <h3>System Dashboard</h3>
+        <div class="dashboard-grid">
+            <div class="dashboard-card" id="recent-projects">
+                <h4>Recent Projects</h4>
+                <div class="dashboard-content" id="recent-projects-content">
+                    <div class="loading-indicator"><div class="spinner"></div> Loading projects...</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card" id="recent-reports">
+                <h4>Recent Reports</h4>
+                <div class="dashboard-content" id="recent-reports-content">
+                    <div class="loading-indicator"><div class="spinner"></div> Loading reports...</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card" id="system-status">
+                <h4>System Status</h4>
+                <div class="dashboard-content">
+                    <div class="status-item">
+                        <span class="status-label">API Server:</span>
+                        <span class="status-value" id="api-status"><div class="spinner"></div> Checking...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Storage:</span>
+                        <span class="status-value" id="storage-status"><div class="spinner"></div> Checking...</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Last Updated:</span>
+                        <span class="status-value" id="last-updated">Just now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>Generate Reports</h3>
+            <p>Generate student and class reports from Cyber8 data.</p>
+            <a href="/generate" class="btn primary">Generate Reports</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Upload CSV</h3>
+            <p>Upload and parse CSV files for processing.</p>
+            <a href="/upload" class="btn primary">Upload CSV</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Available Reports</h3>
+            <p>View and download available reports.</p>
+            <a href="/reports" class="btn primary">View Reports</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Flexible Reports</h3>
+            <p>Generate flexible module, assessment, and grade reports.</p>
+            <a href="/flexible" class="btn primary">Flexible Reports</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>Setup Project</h3>
+            <p>Create a new project with the proper folder structure.</p>
+            <a href="/setup" class="btn primary">Setup Project</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

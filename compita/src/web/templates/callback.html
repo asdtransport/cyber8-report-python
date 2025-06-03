@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Authentication - Cyber8 Report Generator{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Authentication in Progress</h2>
+    
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+    
+    <p>Please wait while we complete your authentication...</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // This page is just a temporary landing page while authentication is processed
+        // The server will redirect to the appropriate page after processing the callback
+    });
+</script>
+{% endblock %}

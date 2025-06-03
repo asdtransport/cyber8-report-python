@@ -1,0 +1,10 @@
+{
+  "class_name": "compita",
+  "current_module": 14,
+  "date": "25-05-30",
+  "required_files": [
+    "classgradebook",
+    "studyhistory",
+    "timeperresource"
+  ]
+}

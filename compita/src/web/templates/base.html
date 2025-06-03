@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cyber8 Report Generator{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cyber8 Report Generator</h1>
+            <p>Generate student and class reports from Cyber8 data</p>
+            {% if current_user %}
+            <div class="user-info">
+                <span>{{ current_user.name }}</span>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="/dashboard" class="nav-link {% if active_page == 'home' %}active{% endif %}">Dashboard</a></li>
+                <li><a href="/generate" class="nav-link {% if active_page == 'generate' %}active{% endif %}">Generate Reports</a></li>
+                <li><a href="/upload" class="nav-link {% if active_page == 'upload' %}active{% endif %}">Upload CSV</a></li>
+                <li><a href="/reports" class="nav-link {% if active_page == 'reports' %}active{% endif %}">Available Reports</a></li>
+                <li><a href="/flexible" class="nav-link {% if active_page == 'flexible' %}active{% endif %}">Flexible Reports</a></li>
+                <li><a href="/setup" class="nav-link {% if active_page == 'setup' %}active{% endif %}">Setup Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Cyber8 Report Generator</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

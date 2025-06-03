@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Cyber8 Report Generator - Setup Project{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Setup New Project</h2>
+    <p>Create a new project with the proper folder structure for a specific date.</p>
+    
+    <div class="form-group">
+        <label for="setup-date">Date (YY-MM-DD):</label>
+        <input type="text" id="setup-date" placeholder="25-05-26" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="class-name">Class Name (optional):</label>
+        <input type="text" id="class-name" placeholder="Cyber8 Spring 2025">
+    </div>
+    
+    <div class="form-group">
+        <label for="current-module">Current Module:</label>
+        <input type="number" id="current-module" placeholder="7" min="1" max="20" required>
+    </div>
+    
+    <div class="setup-options">
+        <h3>Required Files</h3>
+        <div class="checkbox-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="setup-gradebook" checked>
+                <label for="setup-gradebook">Class Gradebook</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="setup-studyhistory" checked>
+                <label for="setup-studyhistory">Study History</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="setup-timeperresource" checked>
+                <label for="setup-timeperresource">Time Per Resource</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="setup-actions">
+        <button id="create-project" class="btn primary">Create Project Structure</button>
+        <button id="validate-project" class="btn secondary">Validate Existing Project</button>
+    </div>
+    
+    <div id="setup-status" class="status-container hidden">
+        <h3>Setup Status</h3>
+        <div class="status-content">
+            <p><strong>Status:</strong> <span id="setup-status-text"></span></p>
+            <p><strong>Message:</strong> <span id="setup-message"></span></p>
+        </div>
+    </div>
+    
+    <div id="project-structure" class="structure-container hidden">
+        <h3>Project Structure</h3>
+        <div class="structure-content">
+            <pre id="structure-tree"></pre>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/setup.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initSetupProject();
+    });
+</script>
+{% endblock %}

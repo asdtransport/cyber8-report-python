@@ -1,0 +1,10 @@
+{
+  "class_name": "Comptia",
+  "current_module": 14,
+  "date": "25-05-29",
+  "required_files": [
+    "classgradebook",
+    "studyhistory",
+    "timeperresource"
+  ]
+}

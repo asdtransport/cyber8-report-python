@@ -1,0 +1,12 @@
+#!/bin/bash
+# CompITA CLI global launcher
+# This script allows running the CompITA CLI from anywhere on your system
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Full path to the CLI script
+CLI_SCRIPT="$SCRIPT_DIR/compita-cli"
+
+# Run the CLI script with all arguments passed to this script
+"$CLI_SCRIPT" "$@"

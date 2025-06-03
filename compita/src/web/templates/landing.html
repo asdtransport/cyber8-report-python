@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber8 Report Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <style>
+        .landing-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .landing-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .landing-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .landing-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .landing-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .landing-features {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .auth-container {
+            flex: 1;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid #4285f4;
+            background-color: #f8f9fa;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .feature h3 {
+            color: #4285f4;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .auth-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .auth-tab.active {
+            color: #4285f4;
+            border-bottom: 2px solid #4285f4;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .auth-option {
+            margin-bottom: 20px;
+        }
+        
+        .auth-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .zitadel-button {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        .zitadel-button:hover {
+            background-color: #3367d6;
+        }
+        
+        .direct-login-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+            text-align: left;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .submit-button {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .submit-button:hover {
+            background-color: #218838;
+        }
+        
+        .auth-footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .auth-footer a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .separator::before {
+            margin-right: 10px;
+        }
+        
+        .separator::after {
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .landing-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <div class="landing-header">
+            <h1 class="landing-title">Cyber8 Report Generator</h1>
+            <p class="landing-subtitle">Generate comprehensive student and class reports from Cyber8 data</p>
+        </div>
+        
+        <div class="landing-content">
+            <div class="landing-features">
+                <div class="feature">
+                    <h3><span class="feature-icon">📊</span> Generate Reports</h3>
+                    <p>Create detailed student progress reports and class summaries with a few clicks. Track performance metrics and identify areas for improvement.</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="feature-icon">🔍</span> Flexible Modules</h3>
+                    <p>Customize reports with flexible module selection and filtering options. Focus on specific areas or get a comprehensive overview.</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="feature-icon">📁</span> Data Management</h3>
+                    <p>Upload and manage CSV data files for your Cyber8 classes. Secure storage and efficient processing of student information.</p>
+                </div>
+            </div>
+            
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" onclick="showTab('login')">Login</div>
+                    <div class="auth-tab" onclick="showTab('signup')">Sign Up</div>
+                </div>
+                
+                <div id="login-tab" class="tab-content active">
+                    {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                    {% endif %}
+                    
+                    <div class="auth-option">
+                        <a href="{{ login_url }}" class="auth-button zitadel-button">Sign in with ZITADEL</a>
+                    </div>
+                    
+                    <div class="separator">OR</div>
+                    
+                    <form action="{{ url_for('login_direct') }}" method="post" class="direct-login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="auth-button submit-button">Login</button>
+                    </form>
+                </div>
+                
+                <div id="signup-tab" class="tab-content">
+                    <div class="auth-option">
+                        <a href="https://npursuit-cyber-igio5w.us1.zitadel.cloud/ui/login/register" target="_blank" class="auth-button zitadel-button">Sign up with ZITADEL</a>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="https://npursuit-cyber-igio5w.us1.zitadel.cloud/ui/login/register" target="_blank">Create one</a> to access all features.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.auth-tab').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show the selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to the clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

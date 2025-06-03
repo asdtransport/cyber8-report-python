@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Cyber8 Report Generator - Flexible Reports{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Flexible Reports</h2>
+    <p>Generate flexible module, assessment, and grade reports with customizable parameters.</p>
+    
+    <div class="tabs report-type-tabs">
+        <button class="tab-btn report-type-tab active" data-report-tab="module-report">Module Report</button>
+        <button class="tab-btn report-type-tab" data-report-tab="assessment-report">Assessment Report</button>
+        <button class="tab-btn report-type-tab" data-report-tab="grades-report">Grades Report</button>
+        <button class="tab-btn report-type-tab" data-report-tab="csv-reports">CSV Reports</button>
+        <button class="tab-btn report-type-tab" data-report-tab="markdown-pdf">Markdown to PDF</button>
+    </div>
+    
+    <!-- Module Report Form -->
+    <div class="tab-content report-tab-content active" id="module-report">
+        <h3>Module Completion Report</h3>
+        <p>Generate a report showing module completion statistics.</p>
+        
+        <div class="form-group">
+            <label for="module-date">Date (YY-MM-DD):</label>
+            <input type="text" id="module-date" placeholder="25-05-27" value="25-05-27" required>
+        </div>
+        
+        <div class="form-group">
+            <label>All Modules (--all-modules):</label>
+            <div class="checkbox-group" id="module-selection">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Subset Modules (--subset-modules):</label>
+            <div class="checkbox-group" id="module-subset-selection">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Exclude Modules (--exclude-modules):</label>
+            <div class="checkbox-group" id="module-exclude-selection">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="module-count-partial">
+                <input type="checkbox" id="module-count-partial">
+                Count Partial Completions
+            </label>
+        </div>
+        
+        <div class="form-group">
+            <label for="module-output-prefix">Output Prefix:</label>
+            <input type="text" id="module-output-prefix" placeholder="module_report">
+        </div>
+        
+        <button id="generate-module-report" class="btn primary">Generate Module Report</button>
+    </div>
+    
+    <!-- Assessment Report Form -->
+    <div class="tab-content report-tab-content" id="assessment-report">
+        <h3>Assessment Report</h3>
+        <p>Generate a report showing assessment scores and statistics.</p>
+        
+        <div class="form-group">
+            <label for="assessment-date">Date (YY-MM-DD):</label>
+            <input type="text" id="assessment-date" placeholder="25-05-26" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Assessment Types to Include:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="assessment-quiz" checked>
+                    <label for="assessment-quiz">Quizzes</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="assessment-test" checked>
+                    <label for="assessment-test">Tests</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="assessment-exam" checked>
+                    <label for="assessment-exam">Exams</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Modules to Include:</label>
+            <div class="checkbox-group" id="assessment-module-selection">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="assessment-output-prefix">Output Prefix:</label>
+            <input type="text" id="assessment-output-prefix" placeholder="assessment_report">
+        </div>
+        
+        <button id="generate-assessment-report" class="btn primary">Generate Assessment Report</button>
+    </div>
+    
+    <!-- Grades Report Form -->
+    <div class="tab-content report-tab-content" id="grades-report">
+        <h3>Grades Report</h3>
+        <p>Generate a report showing student grades with customizable weights.</p>
+        
+        <div class="form-group">
+            <label for="grades-date">Date (YY-MM-DD):</label>
+            <input type="text" id="grades-date" placeholder="25-05-26" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Grade Categories:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grades-quiz" checked>
+                    <label for="grades-quiz">Quizzes</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grades-test" checked>
+                    <label for="grades-test">Tests</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grades-exam" checked>
+                    <label for="grades-exam">Exams</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grades-homework" checked>
+                    <label for="grades-homework">Homework</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="grades-participation" checked>
+                    <label for="grades-participation">Participation</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <h4>Grade Weights</h4>
+            <div class="weight-inputs">
+                <div class="weight-item">
+                    <label for="weight-quiz">Quizzes:</label>
+                    <input type="number" id="weight-quiz" value="15" min="0" max="100">%
+                </div>
+                <div class="weight-item">
+                    <label for="weight-test">Tests:</label>
+                    <input type="number" id="weight-test" value="25" min="0" max="100">%
+                </div>
+                <div class="weight-item">
+                    <label for="weight-exam">Exams:</label>
+                    <input type="number" id="weight-exam" value="30" min="0" max="100">%
+                </div>
+                <div class="weight-item">
+                    <label for="weight-homework">Homework:</label>
+                    <input type="number" id="weight-homework" value="20" min="0" max="100">%
+                </div>
+                <div class="weight-item">
+                    <label for="weight-participation">Participation:</label>
+                    <input type="number" id="weight-participation" value="10" min="0" max="100">%
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Modules to Include:</label>
+            <div class="checkbox-group" id="grades-module-selection">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="grades-output-prefix">Output Prefix:</label>
+            <input type="text" id="grades-output-prefix" placeholder="grades_report">
+        </div>
+        
+        <button id="generate-grades-report" class="btn primary">Generate Grades Report</button>
+    </div>
+    
+    <!-- CSV Reports Form -->
+    <div class="tab-content report-tab-content" id="csv-reports">
+        <h3>CSV Reports</h3>
+        <p>Generate CSV reports for modules, students, or classes.</p>
+        
+        <div class="form-group">
+            <label for="csv-date">Date (YY-MM-DD):</label>
+            <input type="text" id="csv-date" placeholder="25-05-26" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="csv-type">Report Type:</label>
+            <select id="csv-type" required>
+                <option value="module">Module Report</option>
+                <option value="student">Student Report</option>
+                <option value="class">Class Report</option>
+                <option value="all">All CSV Reports</option>
+            </select>
+        </div>
+        
+        <div class="form-group csv-module-options">
+            <label for="csv-module-number">Module Number:</label>
+            <input type="number" id="csv-module-number" placeholder="1" min="1" max="20">
+        </div>
+        
+        <div class="form-group csv-student-options">
+            <label for="csv-student-name">Student Name:</label>
+            <input type="text" id="csv-student-name" placeholder="John Doe">
+        </div>
+        
+        <button id="generate-csv-report" class="btn primary">Generate CSV Report</button>
+    </div>
+    
+    <!-- Markdown to PDF Form -->
+    <div class="tab-content report-tab-content" id="markdown-pdf">
+        <h3>Markdown to PDF Conversion</h3>
+        <p>Convert markdown reports to PDF format.</p>
+        
+        <div class="form-group">
+            <label for="pdf-date">Date (YY-MM-DD):</label>
+            <input type="text" id="pdf-date" placeholder="25-05-26" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="pdf-type">Report Type:</label>
+            <select id="pdf-type" required>
+                <option value="student">Student Reports</option>
+                <option value="class">Class Summary</option>
+                <option value="all">All Reports</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="pdf-output-dir">Output Directory:</label>
+            <input type="text" id="pdf-output-dir" placeholder="reports/25-05-26/executive_reports">
+        </div>
+        
+        <button id="convert-to-pdf" class="btn primary">Convert to PDF</button>
+    </div>
+    
+    <div id="flexible-status" class="status-container hidden">
+        <h3>Task Status</h3>
+        <div class="status-content">
+            <p><strong>Task ID:</strong> <span id="flexible-task-id"></span></p>
+            <p><strong>Status:</strong> <span id="flexible-status-text"></span></p>
+            <p><strong>Message:</strong> <span id="flexible-message"></span></p>
+            <p><strong>Last Updated:</strong> <span id="flexible-timestamp"></span></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/flexible.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        initFlexibleReports();
+    });
+</script>
+{% endblock %}
