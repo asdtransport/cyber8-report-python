@@ -5,7 +5,7 @@
     "buildCommand": "pip install -e ."
   },
   "deploy": {
-    "startCommand": "python3 compita-cli.py app --api-host 0.0.0.0 --api-port $PORT",
+    "startCommand": "python3 compita-cli.py api --host 0.0.0.0 --port $PORT",
     "healthcheckPath": "/api/v1/health",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",

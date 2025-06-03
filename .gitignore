@@ -36,7 +36,10 @@ ENV/
 Thumbs.db
 
 # Project specific
-reports/
+/reports/
+!/compita/reports/
+!/compita/reports/*.py
+!/compita/reports/utils/
 assets/processed/
 *.log
 *.xlsx
