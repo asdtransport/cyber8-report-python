@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-CompITA Report Generator CLI
+Cyber8 Report Generator CLI
 """
 import sys
 from compita.cli.commands import run_command

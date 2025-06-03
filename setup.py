@@ -23,11 +23,12 @@ for root, dirs, files in os.walk("assets"):
         data_files.append((root, [os.path.join(root, f) for f in files]))
 
 setup(
-    name="compita-report-generator",
+    name="cyber8-report-generator",
     version="1.0.0",
-    packages=find_packages(),
+    packages=find_packages(include=['compita', 'compita.*']),
     include_package_data=True,
     package_data=package_data,
+    zip_safe=False,
     data_files=data_files,
     install_requires=[
         "markdown",
@@ -37,6 +38,7 @@ setup(
         "numpy",
         "openpyxl",
         "flask",
+        "python-dotenv",
     ],
     extras_require={
         "api": [
@@ -49,11 +51,12 @@ setup(
     entry_points={
         "console_scripts": [
             "compita=compita.cli.main:main",
+            "cyber8=compita.cli.main:main",
         ],
     },
-    author="CompITA Team",
-    author_email="info@compita.edu",
-    description="A package for generating student progress reports from CompITA data",
+    author="Cyber8 Team",
+    author_email="info@cyber8.org",
+    description="A Python package for generating student progress reports from Cyber8 data",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="education, reports, pdf, markdown",
