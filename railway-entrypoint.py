@@ -13,24 +13,27 @@ def main():
     
     print(f"Starting Cyber8 Report Generator with API on port {port}")
     
-    # Start the API server with its own Python interpreter instance
-    # This isolates any import errors to just the API process
-    api_cmd = f"python3 -c \"import sys; sys.path.append('.'); " + \
-              f"from compita.cli.commands import api_command; " + \
-              f"api_command(host='0.0.0.0', port={port}, reload=False)\""
+    # Start the API server using the CLI command
+    api_cmd = [
+        'python3', 'compita-cli.py', 'api',
+        '--host', '0.0.0.0',
+        '--port', port
+    ]
     
-    api_process = subprocess.Popen(api_cmd, shell=True)
+    api_process = subprocess.Popen(api_cmd)
     
     # Wait a moment for the API server to start
     time.sleep(2)
     
-    # Start the web server with its own Python interpreter instance
-    # This isolates any import errors to just the web process
-    web_cmd = f"python3 -c \"import sys; sys.path.append('.'); " + \
-              f"from compita.cli.commands import web_command; " + \
-              f"web_command(host='0.0.0.0', port=8080, api_url='http://localhost:{port}')\""
+    # Start the web server using the CLI command
+    web_cmd = [
+        'python3', 'compita-cli.py', 'web',
+        '--host', '0.0.0.0',
+        '--port', '8080',
+        '--api-url', f'http://localhost:{port}'
+    ]
     
-    web_process = subprocess.Popen(web_cmd, shell=True)
+    web_process = subprocess.Popen(web_cmd)
     
     print("Both API and web servers started successfully")
     
