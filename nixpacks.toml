@@ -1,19 +1,30 @@
+# Use Ubuntu as the base image for better library compatibility
+[build]
+builder = "nixpacks"
+baseImage = "ubuntu:22.04"
+
 [phases.setup]
-nixPkgs = [
-  "python310",
-  "python310Packages.pip",
-  "python310Packages.setuptools",
-  "python310Packages.wheel",
-  "pango",
-  "cairo",
-  "gobject-introspection",
-  "harfbuzz",
-  "gdk-pixbuf",
-  "libffi",
-  "fontconfig",
-  "freetype",
-  "libxml2",
-  "libxslt"
+aptPkgs = [
+  "build-essential",
+  "python3",
+  "python3-pip",
+  "python3-venv",
+  "python3-dev",
+  "libcairo2",
+  "libpango-1.0-0",
+  "libpangocairo-1.0-0",
+  "libgdk-pixbuf2.0-0",
+  "libffi-dev",
+  "shared-mime-info",
+  "libgirepository1.0-dev",
+  "gir1.2-pango-1.0",
+  "gir1.2-gtk-3.0",
+  "gir1.2-harfbuzz-0.0",
+  "libpango1.0-dev",
+  "libharfbuzz-dev",
+  "libxml2-dev",
+  "libxslt1-dev",
+  "libffi-dev"
 ]
 
 [phases.install]
