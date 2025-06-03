@@ -1,0 +1,16 @@
+[phases.setup]
+nixPkgs = [
+  "pango",
+  "cairo",
+  "gobject-introspection",
+  "harfbuzz",
+  "gdk-pixbuf",
+  "libffi",
+  "fontconfig",
+  "freetype",
+  "libxml2",
+  "libxslt"
+]
+
+[start]
+cmd = "python railway-entrypoint.py"
